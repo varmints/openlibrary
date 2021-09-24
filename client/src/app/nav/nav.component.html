@@ -21,7 +21,6 @@
       </a>
 
       <ul
-        *ngIf="accountService.currentUser$ | async"
         class="
           nav
           col-12 col-lg-auto
@@ -34,22 +33,33 @@
         <li>
           <a
             routerLink="/"
-            routerLinkActive="active"
+            routerLinkActive="fw-bold"
+            [routerLinkActiveOptions]="{ exact: true }"
             class="nav-link px-2 text-white"
             >Home</a
           >
         </li>
-        <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
-        <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
-        <li><a href="#" class="nav-link px-2 text-white">About</a></li>
+        <ng-container *ngIf="accountService.currentUser$ | async">
+          <li>
+            <a
+              routerLink="/books"
+              routerLinkActive="fw-bold"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link px-2 text-white"
+              >Books</a
+            >
+          </li>
+        </ng-container>
       </ul>
 
       <div
         class="dropdown"
-        *ngIf="accountService.currentUser$ | async"
+        *ngIf="accountService.currentUser$ | async as user"
         dropdown
       >
-        <a class="dropdown-toggle text-light" dropdownToggle>Welcome user</a>
+        <a class="dropdown-toggle text-light" dropdownToggle
+          >Welcome {{ user.username | titlecase }}</a
+        >
         <div class="dropdown-menu mt-3" *dropdownMenu>
           <a class="dropdown-item">Edit Profile</a>
           <div class="dropdown-divider"></div>
