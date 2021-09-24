@@ -14,6 +14,7 @@ import { BookListComponent } from './books/book-list/book-list.component';
 import { BookAddingComponent } from './books/book-adding/book-adding.component';
 import { ToastrModule } from 'ngx-toastr';
 import { SharedModule } from './_modules/shared.module';
+import { BookDetailComponent } from './books/book-detail/book-detail.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { SharedModule } from './_modules/shared.module';
     RegisterComponent,
     BookListComponent,
     BookAddingComponent,
+    BookDetailComponent,
   ],
   imports: [
     BrowserModule,
