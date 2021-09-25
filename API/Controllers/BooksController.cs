@@ -15,8 +15,9 @@ namespace API.Controllers
     public class BooksController : BaseApiController
     {
         private readonly IBookRepository _bookRepository;
+        private readonly DataContext _context;
 
-        public BooksController(IBookRepository bookRepository)
+        public BooksController(DataContext context, IBookRepository bookRepository)
         {
             _bookRepository = bookRepository;
         }
@@ -33,6 +34,23 @@ namespace API.Controllers
         public async Task<ActionResult<Book>> GetBook(int id)
         {
             return await _bookRepository.GetBookByIdAsync(id);
+        }
+
+        [HttpPost("add-book")]
+        public async Task<ActionResult<BookAddDto>> AddBook(BookAddDto bookAddDto)
+        {
+            var book = new Book
+            {
+                Title = bookAddDto.Title,
+                Author = bookAddDto.Author,
+                ReleaseDate = bookAddDto.ReleaseDate,
+                ShortDescription = bookAddDto.ShortDescription,
+            };
+
+            _context.Books.Add(book);
+            await _context.SaveChangesAsync();
+
+            return Ok();
         }
     }
 }

@@ -1,1 +1,23 @@
-<p>book-list works!</p>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+  <div *ngFor="let book of books" class="col">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">
+          {{ book.title
+          }}<span class="text-secondary fs-6">
+            &bull; {{ book.releaseDate | date: "yyyy" }}</span
+          >
+        </h5>
+        <p class="card-text">
+          {{ book.shortDescription }}
+        </p>
+        <div class="d-flex justify-content-between">
+          <a routerLink="/books/{{ book.id }}" class="btn btn-secondary"
+            >Show me the details</a
+          >
+          <button class="btn btn-outline-success">Add to reserved</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

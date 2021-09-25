@@ -44,27 +44,39 @@
             <a
               routerLink="/books"
               routerLinkActive="fw-bold"
-              [routerLinkActiveOptions]="{ exact: true }"
               class="nav-link px-2 text-white"
               >Books</a
+            >
+          </li>
+          <li>
+            <a
+              routerLink="/add-book"
+              routerLinkActive="fw-bold"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link px-2 text-white text-decoration-underline"
+              >Add book</a
             >
           </li>
         </ng-container>
       </ul>
 
       <div
-        class="dropdown"
+        class="btn-group"
         *ngIf="accountService.currentUser$ | async as user"
         dropdown
       >
-        <a class="dropdown-toggle text-light" dropdownToggle
-          >Welcome {{ user.username | titlecase }}</a
+        <button
+          dropdownToggle
+          type="button"
+          class="btn btn-dark dropdown-toggle"
         >
-        <div class="dropdown-menu mt-3" *dropdownMenu>
-          <a class="dropdown-item">Edit Profile</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" (click)="logout()">Logout</a>
-        </div>
+          Welcome {{ user.username | titlecase }} <span class="caret"></span>
+        </button>
+        <ul *dropdownMenu class="dropdown-menu" role="menu">
+          <li role="menuitem">
+            <a class="dropdown-item" (click)="logout()" href>Logout</a>
+          </li>
+        </ul>
       </div>
 
       <form

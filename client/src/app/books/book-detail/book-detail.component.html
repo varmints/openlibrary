@@ -1,1 +1,21 @@
-<p>book-detail works!</p>
+<div *ngIf="book" class="row justify-content-center">
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <h5>
+          {{ book.title }}
+          <span class="text-secondary fs-6">
+            &bull; {{ book.releaseDate | date: "yyyy" }}</span
+          >
+        </h5>
+        <p>{{ book.shortDescription }}</p>
+      </div>
+      <div class="card-footer">Reservation list:</div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">An item</li>
+        <li class="list-group-item">A second item</li>
+        <li class="list-group-item">A third item</li>
+      </ul>
+    </div>
+  </div>
+</div>
