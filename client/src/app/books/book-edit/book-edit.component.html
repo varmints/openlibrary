@@ -1,1 +1,65 @@
-<p>book-edit works!</p>
+<form #editBookForm="ngForm" (ngSubmit)="updateBook()" autocomplete="off">
+  <div class="row justify-content-center">
+    <div class="col-sm-6">
+      <div *ngIf="editBookForm.dirty" class="alert alert-info" role="alert">
+        <span class="fw-bold">Information:</span> You have made changes. Any
+        unsaved changes will be lost
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-sm-6">
+      <div *ngIf="book" class="card">
+        <div class="card-header">Edit book:</div>
+        <div class="card-body">
+          <div class="row g-3">
+            <div class="col-sm-12">
+              <label for="title" class="form-label">Title</label>
+              <input
+                [(ngModel)]="book.title"
+                type="text"
+                class="form-control"
+                name="title"
+                required=""
+              />
+            </div>
+
+            <div class="col-sm-12">
+              <label for="author" class="form-label">Author</label>
+              <input
+                [(ngModel)]="book.author"
+                type="text"
+                class="form-control"
+                name="author"
+                required=""
+              />
+            </div>
+
+            <div class="col-sm-12">
+              <label for="shortDescription" class="form-label"
+                >Short description</label
+              >
+              <textarea
+                [(ngModel)]="book.shortDescription"
+                type="date"
+                class="form-control"
+                name="shortDescription"
+                required=""
+              ></textarea>
+            </div>
+            <div class="col-sm-12">
+              <hr class="my-4" />
+              <button
+                [disabled]="!editBookForm.dirty"
+                class="w-100 btn btn-outline-success btn-lg"
+                type="submit"
+              >
+                Save changes
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

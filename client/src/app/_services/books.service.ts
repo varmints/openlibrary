@@ -22,4 +22,8 @@ export class BooksService {
   addNewBook(model: any) {
     return this.http.post(this.baseUrl + 'books/add-book', model);
   }
+
+  updateBook(id: number, book: Book) {
+    return this.http.put(this.baseUrl + 'books/' + id + '/edit-book', book);
+  }
 }

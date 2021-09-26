@@ -6,6 +6,7 @@ using API.Data;
 using API.DTOs;
 using API.Entities;
 using API.Interfaces;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,10 +17,12 @@ namespace API.Controllers
     {
         private readonly IBookRepository _bookRepository;
         private readonly DataContext _context;
+        private readonly IMapper _mapper;
 
-        public BooksController(DataContext context, IBookRepository bookRepository)
+        public BooksController(DataContext context, IBookRepository bookRepository, IMapper mapper)
         {
             _bookRepository = bookRepository;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -51,6 +54,20 @@ namespace API.Controllers
             await _context.SaveChangesAsync();
 
             return Ok();
+        }
+
+        [HttpPut("{id}/edit-book")]
+        public async Task<ActionResult> UpdateBook(int id, BookUpdateDto bookUpdateDto)
+        {
+            var book = await _bookRepository.GetBookByIdAsync(id);
+            
+            _mapper.Map(bookUpdateDto, book);
+
+            _bookRepository.Update(book);
+
+            if(await _bookRepository.SaveAllAsync()) return NoContent();
+
+            return BadRequest("Failed to update book");
         }
     }
 }
